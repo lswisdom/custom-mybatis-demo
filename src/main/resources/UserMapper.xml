@@ -1,0 +1,23 @@
+<mapper namespace="com.ls.dao.IUserDao">
+
+    <select id="findAll" resultType="com.ls.pojo.User">
+        select * from user
+
+    </select>
+
+    <select id="findUserByUserName" resultType="com.ls.pojo.User"  paramterType="com.ls.pojo.User">
+        select * from user where username = #{username}
+    </select>
+
+    <delete id="deleteById" paramterType="com.ls.pojo.User" resultType="java.lang.Integer">
+        delete from  user where id = #{id}
+    </delete>
+
+    <update id="updateById" paramterType="com.ls.pojo.User" resultType="java.lang.Integer">
+        update user set username = #{username} , password = #{password} where id = #{id}
+    </update>
+
+    <insert id="save"  paramterType="com.ls.pojo.User" resultType="java.lang.Integer">
+        insert into user(id,username,password) values(#{id},#{username},#{password})
+    </insert>
+</mapper>
