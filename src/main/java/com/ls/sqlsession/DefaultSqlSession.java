@@ -51,8 +51,10 @@ public class DefaultSqlSession implements SqlSession {
         List<Object> resultList = selectList(statementId, params);
         if (resultList.size() == 1) {
             return (T) resultList.get(0);
+        } else if (resultList.size() > 1) {
+            throw new RuntimeException("Expected one result (or null) to be returned by selectOne(), but found: " + resultList.size());
         } else {
-            throw new RuntimeException(" return multiple results error ");
+            return null;
         }
     }
 
@@ -133,7 +135,7 @@ public class DefaultSqlSession implements SqlSession {
 
                 } else if (sql.startsWith("insert")) {
                     // 如果是插入操作
-                    return insert(statementId,args);
+                    return insert(statementId, args);
                 }
                 return selectOne(statementId, args);
             }
